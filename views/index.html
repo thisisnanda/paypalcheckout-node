@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Paypal Checkout Using Node</title>
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+    <script>
+        paypal.Button.render({
+            env: 'sandbox', // Or 'production'
+            // Set up the payment:
+            // 1. Add a payment callback
+            payment: function(data, actions) {
+                // 2. Make a request to your server
+                return actions.request.post('/my-api/create-payment/')
+                    .then(function(res) {
+                        // 3. Return res.id from the response
+                        return res.id;
+                    });
+            },
+            // Execute the payment:
+            // 1. Add an onAuthorize callback
+            onAuthorize: function(data, actions) {
+                // 2. Make a request to your server
+                return actions.request.post('/my-api/execute-payment/', {
+                    paymentID: data.paymentID,
+                    payerID:   data.payerID
+                })
+                    .then(function(res) {
+                        console.log("response", res);
+                        console.log("Success Payment");
+                    });
+            }
+        }, '#paypal-button');
+    </script>
+</head>
+
+<body>
+
+<div id="paypal-button"></div>
+
+</body>
+
+</html>

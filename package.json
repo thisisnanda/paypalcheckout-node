@@ -1,0 +1,17 @@
+{
+  "name": "paypalcheckout-node",
+  "version": "1.0.0",
+  "description": "Paypalcheckout using node",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nanda Kishore",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.3.4",
+    "express": "^4.13.3",
+    "html": "0.0.10",
+    "request": "^2.88.0"
+  }
+}
